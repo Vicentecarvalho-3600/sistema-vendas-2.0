@@ -1,10 +1,8 @@
 import { Router, Request, Response } from "express";
-import { AppError } from "../errors/AppError";
+import { userRoutes } from "./user.routes";
 
 const routes = Router();
 
-routes.get("/", (req: Request, res: Response) => {
-  res.json({ message: "online" });
-});
+routes.use("/users", userRoutes);
 
 export { routes };
