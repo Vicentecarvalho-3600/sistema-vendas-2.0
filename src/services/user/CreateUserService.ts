@@ -1,5 +1,7 @@
 import { AppError } from "../../errors/AppError";
+import { hash } from "bcryptjs";
 import prismaClient from "../../prisma";
+
 type CreateUserParams = {
   name: string;
   email: string;
@@ -22,11 +24,13 @@ class CreateUserService {
       throw new AppError("Email já cadastrado");
     }
 
+    const passwordHash = await hash(password, 8);
+
     const user = await prismaClient.user.create({
       data: {
         name: name,
         email: email,
-        password: password,
+        password: passwordHash,
       },
       select: {
         id: true,
