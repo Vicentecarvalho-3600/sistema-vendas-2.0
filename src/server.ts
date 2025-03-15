@@ -1,10 +1,11 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import cors from "cors";
-import { routes } from "./routes/routes";
-import "dotenv/config";
-import { AppError } from "./errors/AppError";
+import { routes } from "./routes";
+import dotenv from "dotenv";
+import { errorHandler } from "./utils/errorHandler";
 import path from "node:path";
 
+dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -12,18 +13,7 @@ app.use(cors());
 app.use(routes);
 app.use("/files", express.static(path.resolve(__dirname, "..", "tmp")));
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction): any => {
-  if (err instanceof AppError) {
-    return res.status(err.statusCode).json({
-      error: err.message,
-    });
-  }
-
-  return res.status(500).json({
-    status: "error",
-    message: "internal server error",
-  });
-});
+app.use(errorHandler);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
