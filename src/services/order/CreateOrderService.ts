@@ -8,13 +8,13 @@ type CreateOrderParams = {
 
 class CreateOrderService {
   async execute({ table, name }: CreateOrderParams) {
-    const category = await prismaClient.order.create({
+    const order = await prismaClient.order.create({
       data: {
         table: table,
         name: name,
       },
     });
-    return category;
+    return order;
   }
 }
 
