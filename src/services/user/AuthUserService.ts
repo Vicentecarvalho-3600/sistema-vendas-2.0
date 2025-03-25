@@ -3,6 +3,9 @@ import { compare } from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import prismaClient from "../../prisma";
 import { SignOptions, Secret } from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 type AuthRequestParams = {
   email: string;

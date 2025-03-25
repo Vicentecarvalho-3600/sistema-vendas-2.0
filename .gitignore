@@ -38,3 +38,5 @@ uploads/*
 !uploads/.gitkeep
 db.sqlite
 tmp
+# Ignore all .env files
+yarn.lock
