@@ -7,6 +7,7 @@ import { removeItemController } from "../instances/order/removeItem";
 import { sendOrderController } from "../instances/order/sendOrder";
 import { listOrderController } from "../instances/order/listOrder";
 import { detailsOrderController } from "../instances/order/detailsOrder";
+import { finishOrderController } from "../instances/order/finishOrder";
 
 const orderRoutes = Router();
 
@@ -36,6 +37,10 @@ orderRoutes.get("/list", isAuthenticated, (req, res, next) => {
 
 orderRoutes.get("/details", isAuthenticated, (req, res, next) => {
   detailsOrderController.handle(req, res, next);
+});
+
+orderRoutes.put("/finish", isAuthenticated, (req, res, next) => {
+  finishOrderController.handle(req, res, next);
 });
 
 export { orderRoutes };
